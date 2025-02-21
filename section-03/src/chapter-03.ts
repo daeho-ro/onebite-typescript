@@ -1,75 +1,67 @@
-/*
- * Unknown
- */
+// 객체 타입의 호환성
+type Animal = {
+  name: string;
+  color: string;
+};
 
-function unknownExam() {
-  let a: unknown = 123;
-  let b: unknown = 'hello';
-  let c: unknown = true;
-  let d: unknown = null;
-  let e: unknown = undefined;
+type Dog = {
+  name: string;
+  color: string;
+  breed: string;
+};
 
-  let unknownVar: unknown;
+let animal: Animal = {
+  name: '기린',
+  color: 'yellow',
+};
 
-  //   let num: number = unknownVar;
-  //   let str: string = unknownVar;
-  //   let bool: boolean = unknownVar;
-  //   let nullVar: null = unknownVar;
-  //   let undefinedVar: undefined = unknownVar;
-}
+let dog: Dog = {
+  name: '돌돌이',
+  color: 'brown',
+  breed: '진도',
+};
 
-/*
- * Never
- */
+animal = dog;
+// dog = animal;
 
-function neverExam() {
-  function neverFunc(): never {
-    while (true) {}
-  }
+type Book = {
+  name: string;
+  price: number;
+};
 
-  let num: number = neverFunc();
-  let str: string = neverFunc();
-  let bool: boolean = neverFunc();
-  let nullVar: null = neverFunc();
-  let undefinedVar: undefined = neverFunc();
+type ProgrammingBook = {
+  name: string;
+  price: number;
+  skill: string;
+};
 
-  //   let a: never = 123;
-  //   let b: never = 'hello';
-  //   let c: never = true;
-  //   let d: never = null;
-  //   let e: never = undefined;
-}
+let book: Book;
+let programmingBook: ProgrammingBook = {
+  name: '한 입 크기로 잘라먹는 리액트',
+  price: 30000,
+  skill: 'reactjs',
+};
 
-/*
- * Void
- */
-
-function voidExam() {
-  function voidFunc(): void {
-    console.log('void');
-  }
-
-  let a: void = undefined;
-
-  //   let undefinedVar: undefined = voidFunc();
-}
+book = programmingBook;
+// programmingBook = book;
 
 /*
- * Any
+ * 초과 프로퍼티 검사
+ * 초기화 시에만 엄격한 타입 검사
  */
+let book2: Book = {
+  name: '한 입 크기로 잘라먹는 리액트',
+  price: 30000,
+  //   skill: 'reactjs',
+};
 
-function anyExam() {
-  let unknownVar: unknown;
-  let anyVar: any;
-  let undefinedVar: undefined;
-  let neverVar: never;
+let boo3: Book = programmingBook;
 
-  anyVar = unknownVar;
-  unknownVar = anyVar;
+function func(book: Book) {}
+func({
+  name: '한 입 크기로 잘라먹는 리액트',
+  price: 30000,
+  //   skill: 'reactjs',
+});
 
-  anyVar = undefinedVar;
-  undefinedVar = anyVar;
-
-  //   anyVar = neverVar;
-  //   neverVar = anyVar;
-}
+func(programmingBook);
